@@ -175,13 +175,13 @@ function Home({ setIsAuth, email }) {
         <h3>Add expense</h3>
         <input
           placeholder="Name..."
-          value={newName}
+
           onChange={(event) => setNewName(event.target.value)}
         />
         <input
           type="number"
           placeholder="Value..."
-          value={newValue}
+
           onChange={(event) => setNewValue(event.target.value)}
         />
         <button onClick={createExpense}>Add Expense</button>
@@ -192,7 +192,7 @@ function Home({ setIsAuth, email }) {
             <input
               type="number"
               placeholder="New value"
-              value={upValue}
+
               onChange={(event) => setUpValue(event.target.value)}
             />
             <button onClick={() => updateExpenses(expense.id, upValue)}>Change Value</button>
