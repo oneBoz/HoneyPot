@@ -4,58 +4,65 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Honey Pot Login</title>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css"> <!-- Font Awesome for icons -->
     <style>
         body {
             display: flex;
             justify-content: center;
             align-items: center;
             height: 100vh;
+            margin: 0;
             font-family: 'Comic Sans MS', cursive, sans-serif;
-            background: #f0e68c; /* Simple background color */
+            background: url('Pot.jpg') no-repeat center center fixed;
+            background-size: cover;
         }
         .login-container {
-            background-color: white;
-            padding: 20px;
-            border-radius: 5px;
-            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-            width: 300px;
+            background-color: rgba(255, 242, 204, 0.9);
+            padding: 20px 30px;
+            border-radius: 15px;
+            box-shadow: 0 0 20px rgba(0, 0, 0, 0.2);
+            width: 320px;
             text-align: center;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
         }
         .login-container h1 {
             color: #d49400;
             margin-bottom: 20px;
         }
+        .login-container form {
+            width: 100%;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
         .login-container input {
             width: 100%;
-            padding: 10px;
-            margin: 10px 0;
-            border: 1px solid #ccc;
-            border-radius: 5px;
-        }
-        .button-container {
-            display: flex;
-            justify-content: space-between;
-            margin-top: 20px;
+            padding: 12px;
+            margin: 12px 0;
+            border: 2px solid #ffcc66;
+            border-radius: 10px;
         }
         .login-container button {
-            flex: 1;
-            margin: 0 5px;
-            padding: 10px;
+            width: 100%;
+            padding: 12px;
             background-color: #ff9900;
             border: none;
-            border-radius: 5px;
+            border-radius: 10px;
             color: white;
+            font-size: 18px;
             cursor: pointer;
+            transition: background-color 0.3s;
+            margin-bottom: 10px;
         }
-        .google-button {
-            background-color: #4285f4;
-            display: flex;
-            align-items: center;
-            justify-content: center;
+        .login-container button:hover {
+            background-color: #e68a00;
         }
-        .google-button i {
-            margin-right: 5px;
+        .register-button {
+            background-color: #ffcc66;
+        }
+        .register-button:hover {
+            background-color: #d49400;
         }
     </style>
 </head>
@@ -65,10 +72,8 @@
         <form>
             <input type="text" placeholder="Username" required>
             <input type="password" placeholder="Password" required>
-            <div class="button-container">
-                <button type="submit">Login</button>
-                <button class="google-button"><i class="fab fa-google"></i> Google</button>
-            </div>
+            <button type="submit">Login</button>
+            <button type="button" class="register-button">Register</button>
         </form>
     </div>
 </body>
