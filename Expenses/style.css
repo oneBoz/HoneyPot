@@ -1,0 +1,135 @@
+
+body {
+  font-family: 'Rubik', sans-serif;
+  background-color: #fff5e1; 
+  color: #6d4c41; 
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  height: 100vh; 
+}
+
+.banner {
+  background-color: #f9a825; 
+  width: 100%;
+  text-align: center;
+  padding: 20px 0;
+  position: relative;
+}
+
+.back-button {
+  position: absolute;
+  left: 20px;
+  top: 50%;
+  transform: translateY(-50%);
+  background-color: #ffeb3b; 
+  border: none;
+  padding: 10px 20px;
+  border-radius: 20px;
+  color: #6d4c41; 
+  font-family: 'Rubik', sans-serif;
+  font-weight: bold;
+  cursor: pointer;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  transition: background-color 0.3s ease, transform 0.3s ease;
+}
+
+.back-button:hover {
+  background-color: #ffd54f; 
+  transform: scale(1.05); 
+}
+
+.page-heading {
+  color: #fff;
+  margin: 0;
+}
+
+.container {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  padding: 20px;
+}
+
+.form-container, .table-container {
+  width: 100%;
+  max-width: 600px;
+  background-color: #ffe0b2; 
+  padding: 20px;
+  margin: 20px 0;
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+h3 {
+  color: #6d4c41; 
+  text-align: center;
+}
+
+form {
+  display: flex;
+  flex-direction: column;
+}
+
+label {
+  margin: 10px 0 5px;
+}
+
+input {
+  padding: 10px;
+  border: 1px solid #6d4c41;
+  border-radius: 5px;
+}
+
+button {
+  margin-top: 20px;
+  padding: 10px;
+  background-color: #ffeb3b; 
+  border: none;
+  border-radius: 20px;
+  color: #6d4c41; 
+  font-family: 'Rubik', sans-serif;
+  font-weight: bold;
+  cursor: pointer;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  transition: background-color 0.3s ease, transform 0.3s ease;
+}
+
+button:hover {
+  background-color: #ffd54f; 
+  transform: scale(1.05); 
+}
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+th, td {
+  padding: 10px;
+  border: 1px solid #6d4c41;
+  text-align: left;
+}
+
+th {
+  background-color: #f9a825; 
+  color: #fff;
+}
+
+td button {
+  background-color: #f9a825; 
+  border: none;
+  padding: 5px 10px;
+  border-radius: 5px;
+  color: #fff;
+  font-family: 'Rubik', sans-serif;
+  cursor: pointer;
+  transition: background-color 0.3s ease, transform 0.3s ease;
+}
+
+td button:hover {
+  background-color: #ffd54f;
+  transform: scale(1.05); 
+}
