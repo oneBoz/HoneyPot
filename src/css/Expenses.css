@@ -1,0 +1,69 @@
+/* Example of CSS for styling the table with an orange theme */
+.expense-table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 20px;
+  margin-bottom: 20px;
+  font-family: Arial, sans-serif;
+}
+
+.expense-table th, .expense-table td {
+  padding: 12px;
+  text-align: left;
+  border-bottom: 1px solid #ddd;
+}
+
+.expense-table th {
+  background-color: #f39c12; /* Orange background for header */
+  color: #fff; /* White text color */
+}
+
+.expense-table td {
+  background-color: #fed8b1; /* Light orange background for table cells */
+  color: #333; /* Dark text color */
+}
+
+.expense-table .delete-btn {
+  background-color: #e74c3c; /* Darker shade of orange for buttons */
+  color: #fff; /* White text color */
+  border: none;
+  padding: 8px 16px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  cursor: pointer;
+  border-radius: 4px;
+  transition: background-color 0.3s;
+}
+
+.expense-table .delete-btn:hover {
+  background-color: #c0392b; /* Darker shade on hover */
+}
+
+.main-content {
+  display: flex;
+}
+
+.show-expenses-btn {
+  background-color: #4CAF50; /* Green background */
+  border: none;
+  color: white; /* White text */
+  padding: 15px 32px; /* Padding */
+  text-align: center; /* Center text */
+  text-decoration: none; /* Remove underline */
+  display: inline-block; /* Inline block display */
+  font-size: 16px; /* Font size */
+  margin: 4px 2px; /* Margin */
+  cursor: pointer; /* Pointer cursor */
+  border-radius: 4px; /* Rounded corners */
+  transition: background-color 0.3s ease; /* Smooth transition */
+}
+
+.show-expenses-btn:hover {
+  background-color: #45a049; /* Darker green on hover */
+}
+
+.show-expenses-btn:focus {
+  outline: none; /* Remove focus outline */
+}
+

@@ -1,0 +1,120 @@
+/* Global styles */
+body {
+    font-family: 'Rubik', sans-serif;
+    background: linear-gradient(to bottom, #fff5e1 0%, #f7d794 100%);
+    color: #6d4c41;
+    margin: 0;
+    overflow-x: hidden; /* Changed to hide horizontal scrollbar */
+  }
+  
+  .banner {
+    background-color: #e89715;
+    width: 100%;
+    padding: 20px 0;
+    text-align: center;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  }
+  
+  .header-content {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 2;
+  }
+  
+  .page-heading {
+    color: #fff;
+    margin: 0;
+    text-shadow: 2px 2px 8px rgba(0, 0, 0, 0.2);
+  }
+  
+  .main-content {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 20px;
+    overflow-y: auto;
+  }
+  
+  .news-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 20px;
+    max-width: 1200px;
+    width: 100%;
+    padding: 20px;
+    margin: 0 auto; /* Center align grid on larger screens */
+    margin-top: 100px;
+  }
+  
+  .card {
+    background-color: #dfcf37;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    padding: 15px;
+    transition: transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
+  }
+  
+  .card:hover {
+    transform: translateY(-5px); /* Adjusted hover effect */
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+  }
+  
+  .card img {
+    width: 100%;
+    border-radius: 8px;
+    margin-bottom: 10px;
+  }
+  
+  .card-title {
+    font-size: 1.2em;
+    margin: 5px 0;
+  }
+  
+  .card-text {
+    font-size: 0.9em;
+    line-height: 1.5;
+  }
+  
+  .btn-primary {
+    background-color: #c68068;
+    color: #fff;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 5px;
+    text-decoration: none;
+    display: inline-block;
+    transition: background-color 0.3s ease, transform 0.3s ease;
+  }
+  
+  .btn-primary:hover {
+    background-color: #f5ebe9;
+    transform: scale(1.05);
+  }
+  
+  .parallax {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    transform: translateZ(-1px) scale(2);
+    background-size: cover;
+    background-attachment: fixed;
+    z-index: -1;
+  }
+  
+  @media (max-width: 1200px) {
+    .news-grid {
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 15px;
+    }
+  }
+  
+  @media (max-width: 768px) {
+    .news-grid {
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 10px;
+    }
+  }
+  
