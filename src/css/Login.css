@@ -1,0 +1,67 @@
+/* styles.css */
+
+/* Body styles */
+body {
+  background-color: #fdf5e6; /* Light orange background */
+}
+
+/* Login container styles */
+.login-container {
+  max-width: 400px;
+  margin: 0 auto;
+  padding: 20px;
+  background-color: #fff;
+  border: 1px solid #ddd;
+  border-radius: 5px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  text-align: center;
+  margin-top: 50px;
+}
+
+/* Header styles */
+.login-container h1 {
+  color: #f90; /* Orange header */
+  font-size: 2rem;
+  margin-bottom: 20px;
+}
+
+/* Form styles */
+.login-container form {
+  display: flex;
+  flex-direction: column;
+}
+
+.login-container input[type="email"],
+.login-container input[type="password"] {
+  width: 100%;
+  padding: 10px;
+  margin-bottom: 10px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+}
+
+.login-container .button-container {
+  display: flex;
+  justify-content: center;
+  margin-top: 10px;
+}
+
+.login-container button {
+  padding: 10px 20px;
+  background-color: #f90; /* Orange button */
+  color: #fff;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.login-container button:hover {
+  background-color: #e68000; /* Darker orange on hover */
+}
+
+/* Message styles */
+.login-container h2 {
+  color: #f90; /* Orange message */
+  margin-top: 10px;
+}
