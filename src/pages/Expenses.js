@@ -1,3 +1,4 @@
+// export default Expenses;
 import { onAuthStateChanged } from "firebase/auth";
 import { Link } from "react-router-dom";
 import { useState, useEffect, useRef } from 'react';
@@ -9,8 +10,9 @@ import "../css/Expenses.css";
 import ExpensesChart from "./ExpensesChart";
 import BudgetChart from "./BudgetChart";
 
-
-
+/**
+ * Expenses component manages and displays user expenses and budget.
+ */
 function Expenses() {
     const [menuOpen, setMenuOpen] = useState(false);
     const [tableOpen, setTableOpen] = useState(false);
@@ -25,6 +27,8 @@ function Expenses() {
     const [error, setError] = useState(null);
     const [toggleExpense, setToggleExpense] = useState(false);
     const [selectedCategory, setSelectedCategory] = useState("");
+    const [currCategory, setCurrCategory] = useState("");
+
     const [output, setOutput] = useState([]);
     const [docid, setDocId] = useState(null);
     const [total, setTotal] = useState(0.0);
@@ -36,10 +40,16 @@ function Expenses() {
     const usersRef = email ? collection(db, email) : null;
     const menuRef = useRef(null);
 
+    /**
+     * Toggles the visibility of the menu.
+     */
     const toggleMenu = () => {
         setMenuOpen(!menuOpen);
     };
 
+    /**
+     * Fetches and sets the chart data for the current month.
+     */
     const getChart = async () => {
         const out = [0, 0, 0, 0, 0];
         const currDate = new Date();
@@ -48,7 +58,7 @@ function Expenses() {
                 out[i] = data[categories[i]].reduce((accumulator, item) => {
                     const [name, value, date] = item.split(": ");
                     const itemDate = new Date(Number(date) * 1000);
-                    if (itemDate.getMonth() === currDate.getMonth() && itemDate.getFullYear() === currDate.getFullYear()){
+                    if (itemDate.getMonth() === currDate.getMonth() && itemDate.getFullYear() === currDate.getFullYear()) {
                         return accumulator + Number(value);
                     } else {
                         return accumulator;
@@ -56,70 +66,85 @@ function Expenses() {
                 }, 0.0);
             }
         }
-        
         setChartData(out);
+    };
 
-    }
-
+    /**
+     * Creates a new expense entry for the selected category.
+     * @param {string} name - Name of the expense.
+     * @param {number} value - Value of the expense.
+     * @param {number} time - Timestamp of the expense.
+     */
     const createExpense = async (name, value, time) => {
         try {
             if (email && selectedCategory) {
                 const userDoc = doc(db, email, docid);
-                const newFields = { [selectedCategory]: arrayUnion(`${name}: ${value > 0 ? value : 0}: ${time}`)};
+                const newFields = { [selectedCategory]: arrayUnion(`${name}: ${value > 0 ? value : 0}: ${time}`) };
                 await updateDoc(userDoc, newFields);
                 
-                // Fetch updated data from Firestore
                 await fetchData();
-                
-                // Refresh category data in the UI
                 fetchCategory(selectedCategory);
             }
         } catch (error) {
             console.error("Error creating expense:", error);
-            // Handle error as needed
-        } finally {
-
         }
     };
 
+    /**
+     * Deletes an expense entry for the selected category.
+     * @param {number} index - Index of the expense to delete.
+     */
     const deleteExpense = async (index) => {
         try {
             if (email && selectedCategory) {
                 const userDoc = doc(db, email, docid);
-                const newFields = { [selectedCategory]: arrayRemove(data[selectedCategory][index])};
+                const newFields = { [selectedCategory]: arrayRemove(data[selectedCategory][index]) };
                 await updateDoc(userDoc, newFields);
-                await fetchData()
+                await fetchData();
                 fetchCategory(selectedCategory);
             }
         } catch (error) {
-            console.error("Error creating expense:", error);
+            console.error("Error deleting expense:", error);
         }
-        
     };
 
+    /**
+     * Updates an existing expense entry for the selected category.
+     * @param {number} index - Index of the expense to update.
+     * @param {string} name - Updated name of the expense.
+     * @param {number} value - Updated value of the expense.
+     * @param {number} time - Updated timestamp of the expense.
+     */
     const updateExpense = async (index, name, value, time) => {
         if (email) {
             const userDoc = doc(db, email, docid);
-            data[selectedCategory][index] = `${name}: ${value}: ${time}`
-            const newFields = { [selectedCategory]: data[selectedCategory]};
+            data[selectedCategory][index] = `${name}: ${value}: ${time}`;
+            const newFields = { [selectedCategory]: data[selectedCategory] };
             await updateDoc(userDoc, newFields);
             fetchCategory(selectedCategory);
         }
     };
 
+    /**
+     * Sets the budget value for the user.
+     * @param {number} sum - The budget value to set.
+     */
     const setBudget = async (sum) => {
         try {
             if (email) {
                 const userDoc = doc(db, email, docid);
-                const newFields = { Budget: sum};
+                const newFields = { Budget: sum };
                 await updateDoc(userDoc, newFields);
                 await fetchData();
             }
         } catch (error) {
-            console.error("Error creating expense:", error);
+            console.error("Error setting budget:", error);
         }
-    }
+    };
 
+    /**
+     * Fetches user data from the Firestore and sets the state.
+     */
     const fetchData = async () => {
         setLoading(true);
         setError(null);
@@ -136,6 +161,10 @@ function Expenses() {
         }
     };
 
+    /**
+     * Fetches data for the selected category and sets the state.
+     * @param {string} key - The category key to fetch data for.
+     */
     const fetchCategory = async (key) => {
         try {
             if (!email || !key) {
@@ -146,17 +175,20 @@ function Expenses() {
 
             if (data[key]) {
                 setOutput(data[key]);
+                setCurrCategory(key);
             } else {
                 setOutput([]);
             }
             setTableOpen(true);
         } catch (error) {
             console.error("Error fetching category data:", error);
-            // Handle error as needed
         }
     };
-    
 
+    /**
+     * Calculates the total expense from the data.
+     * @returns {number} - The total expense value.
+     */
     const getTotalExpense = () => {
         let sum = 0.0;
         for (let key in data) {
@@ -170,6 +202,10 @@ function Expenses() {
         return sum;
     };
 
+    /**
+     * Calculates the total monthly expense from the data.
+     * @returns {number} - The total monthly expense value.
+     */
     const getTotalMonthly = () => {
         const currDate = new Date();
         let sum = 0.0;
@@ -178,7 +214,7 @@ function Expenses() {
                 sum += data[key].reduce((accumulator, item) => {
                     const [name, value, date] = item.split(": ");
                     const itemDate = new Date(Number(date) * 1000);
-                    if (itemDate.getMonth() === currDate.getMonth() && itemDate.getFullYear() === currDate.getFullYear()){
+                    if (itemDate.getMonth() === currDate.getMonth() && itemDate.getFullYear() === currDate.getFullYear()) {
                         return accumulator + Number(value);
                     } else {
                         return accumulator;
@@ -189,7 +225,6 @@ function Expenses() {
         return sum;
     };
 
-    
     useEffect(() => {
         const fetchDataAfterAuth = async (currentUser) => {
             if (currentUser) {
@@ -207,7 +242,7 @@ function Expenses() {
     }, [navigate]);
 
     useEffect(() => {
-        if (email && Object.keys(data).length > 0){
+        if (email && Object.keys(data).length > 0) {
             const month = getTotalMonthly();
             const year = getTotalExpense();
             setTotalMonthly(month);
@@ -216,7 +251,6 @@ function Expenses() {
             getChart();
         }
     }, [email, data]);
-
 
     useEffect(() => {
         const handleClickOutside = (event) => {
@@ -231,18 +265,23 @@ function Expenses() {
         };
     }, [menuRef]);
 
+    /**
+     * Logs the user out and redirects to the home page.
+     */
     const logout = async () => {
         await signOut(auth);
         setEmail("");
         navigate('/');
     };
 
+    /**
+     * Refreshes the data and chart.
+     */
     const refresh = async () => {
         setToggleExpense(true);
         await fetchData();
         await getChart();
-
-    }
+    };
 
     return (
         <div>
@@ -260,112 +299,111 @@ function Expenses() {
                         <Link to="/signup">Sign Up</Link>
                     </div>
                 )}
-                {/* <Link onClick={logout}>Log out</Link>
-                <Link to='/SignUp'>Sign Up</Link> */}
                 <Link to='/Home'>Home</Link>
             </nav>
             {!toggleExpense && (<button onClick={refresh} className="show-expenses-btn">Show Expenses</button>)}
-            {toggleExpense && (<div className="main-content">
-                <div className="Budget-container">
-                    <h2>Budget</h2>
-                    <BudgetChart data={[totalMonth, data["Budget"] - totalMonth > 0 ? data["Budget"] - totalMonth : 0]} />
-                    <input
-                        type="number"
-                        placeholder="Budget..."
-                        onChange={(event) => setNewBudget(event.target.value)}
-                    />
-                    <button onClick={() => {
-                        if (newBudget < 0) {
-                            alert("Budget cannot be negative.");
-                        } else {
-                            setBudget(newBudget);
-                        }}}>Set Budget</button>
-                    <p>Budget: {data["Budget"]}</p>
-                </div>
-
-                <div className="Monthly-chart-container">
-                    <h2>Monthly Expenses</h2>
-                    <ExpensesChart data={chartData} />
-                    <p>{email}</p>
-                    <p>Total Monthly Expense: {totalMonth}</p>
-                    <p>Total Expense: {total}</p>
-                </div>
-
-
-                <div className="Table-container">
-                <h3>Select a Category</h3>
-                <select
-                    value={selectedCategory}
-                    onChange={(e) => setSelectedCategory(e.target.value)}
-                >
-                    <option value="" disabled>Select Category</option>
-                    {categories.map((category, index) => (
-                        <option key={index} value={category}>{category}</option>
-                    ))}
-                </select>
-                <button onClick={() => fetchCategory(selectedCategory)}>Search Category</button>
-                
-                
-
-                {/* Conditional rendering of Add Expense section */}
-                {tableOpen && (
-                    <>
-                        <h3>Add expense</h3>
-                        <input
-                            placeholder="Name..."
-                            onChange={(event) => setNewName(event.target.value)}
-                        />
+            {toggleExpense && (
+                <div className="main-content">
+                    <div className="Budget-container">
+                        <h2>Budget</h2>
+                        <BudgetChart data={[totalMonth, data["Budget"] - totalMonth > 0 ? data["Budget"] - totalMonth : 0]} />
                         <input
                             type="number"
-                            placeholder="Value..."
-                            onChange={(event) => setNewValue(event.target.value)}
+                            placeholder="Budget..."
+                            onChange={(event) => setNewBudget(event.target.value)}
                         />
                         <button onClick={() => {
-                            if (newValue < 0) {
-                                alert("Value cannot be negative.");
+                            if (newBudget < 0) {
+                                alert("Budget cannot be negative.");
                             } else {
-                                createExpense(newName, newValue, Timestamp.now().seconds);
-                            }}}
-                        >Add Expense
-                        </button>
-                    </>
-                )}
+                                setBudget(newBudget);
+                            }
+                        }}>Set Budget</button>
+                        <p>Budget: {data["Budget"]}</p>
+                    </div>
 
-                {/* Table to display expenses */}
-                {tableOpen && (
-                    <table className="expense-table">
-                        <thead>
-                            <tr>
-                                <th>Name</th>
-                                <th>Value</th>
-                                <th>Date</th>
-                                <th>Actions</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            {output.map((item, index) => {
-                                const [name, value, date] = item.split(': ');
-                                return (
-                                    <tr key={index}>
-                                        <td>{name}</td>
-                                        <td>{value}</td>
-                                        <td>{new Date(Number(date) * 1000).toLocaleDateString('en-US')}</td>
-                                        <td>
-                                            <button onClick={() => deleteExpense(index)} className="delete-btn">Delete</button>
-                                            {/* Add update functionality here if needed */}
-                                        </td>
+                    <div className="Monthly-chart-container">
+                        <h2>Monthly Expenses</h2>
+                        <ExpensesChart data={chartData} />
+                        <p>{email}</p>
+                        <p>Total Monthly Expense: {totalMonth}</p>
+                        <p>Total Expense: {total}</p>
+                    </div>
+
+                    <div className="Table-container">
+                        <h3>Select a Category</h3>
+                        <select
+                            value={selectedCategory}
+                            onChange={(e) => setSelectedCategory(e.target.value)}
+                        >
+                            <option value="" disabled>Select Category</option>
+                            {categories.map((category, index) => (
+                                <option key={index} value={category}>{category}</option>
+                            ))}
+                        </select>
+                        <button onClick={() => fetchCategory(selectedCategory)}>Search Category</button>
+
+                        {/* Conditional rendering of Add Expense section */}
+                        {tableOpen && (
+                            <>
+                                <p> </p>
+                                <h3>Add expense</h3>
+                                <input
+                                    placeholder="Name..."
+                                    onChange={(event) => setNewName(event.target.value)}
+                                />
+                                <input
+                                    type="number"
+                                    placeholder="Value..."
+                                    onChange={(event) => setNewValue(event.target.value)}
+                                />
+                                <button onClick={() => {
+                                    if (newValue < 0) {
+                                        alert("Value cannot be negative.");
+                                    } else {
+                                        createExpense(newName, newValue, Timestamp.now().seconds);
+                                    }
+                                }}>Add Expense
+                                </button>
+                                <p> </p>
+                                <h3>{currCategory}</h3>
+                            </>
+                        )}
+
+                        {/* Table to display expenses */}
+                        {tableOpen && (
+                            <table className="expense-table">
+                                <thead>
+                                    <tr>
+                                        <th>Name</th>
+                                        <th>Value</th>
+                                        <th>Date</th>
+                                        <th>Actions</th>
                                     </tr>
-                                );
-                            })}
-                        </tbody>
-                    </table>
-                )}
+                                </thead>
+                                <tbody>
+                                    {output.map((item, index) => {
+                                        const [name, value, date] = item.split(': ');
+                                        return (
+                                            <tr key={index}>
+                                                <td>{name}</td>
+                                                <td>{value}</td>
+                                                <td>{new Date(Number(date) * 1000).toLocaleDateString('en-US')}</td>
+                                                <td>
+                                                    <button onClick={() => deleteExpense(index)} className="delete-btn">Delete</button>
+                                                    {/* Add update functionality here if needed */}
+                                                </td>
+                                            </tr>
+                                        );
+                                    })}
+                                </tbody>
+                            </table>
+                        )}
+                    </div>
                 </div>
-
-            </div>)}
+            )}
         </div>
     );
-
 }
 
 export default Expenses;

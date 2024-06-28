@@ -1,20 +1,40 @@
+// export default Home;
+
 import { useState, useEffect, useRef } from 'react';
 import { Link, useNavigate } from "react-router-dom";
 import { onAuthStateChanged, signOut } from "firebase/auth";
 import { auth } from "../firebase-config";
-import '../css/Home.css'; // Assuming the CSS is in Home.css
+import '../css/Home.css';
 
+/**
+ * Home component renders the main page of the financial planning application.
+ * It handles user authentication and provides navigation to different features.
+ * 
+ * @component
+ * @example
+ * return (
+ *   <Home />
+ * )
+ */
 function Home() {
   const [email, setEmail] = useState("");
   const [menuOpen, setMenuOpen] = useState(false);
   const menuRef = useRef(null);
   const navigate = useNavigate();
 
+  /**
+   * Toggles the state of the dropdown menu.
+   */
   const toggleMenu = () => {
-    setMenuOpen(!menuOpen);
+    setMenuOpen(prevState => !prevState);
   };
 
   useEffect(() => {
+    /**
+     * Checks the authentication state and updates the email state or redirects the user.
+     * 
+     * @param {import('firebase/auth').User | null} currentUser - The current user from Firebase authentication.
+     */
     const checkAuthState = async (currentUser) => {
       if (currentUser) {
         setEmail(currentUser.email);
@@ -25,12 +45,18 @@ function Home() {
 
     const unsubscribe = onAuthStateChanged(auth, checkAuthState);
 
+    // Clean up the subscription on unmount
     return () => {
       unsubscribe();
     };
   }, [navigate]);
 
   useEffect(() => {
+    /**
+     * Closes the dropdown menu when clicking outside of it.
+     * 
+     * @param {MouseEvent} event - The click event.
+     */
     const handleClickOutside = (event) => {
       if (menuRef.current && !menuRef.current.contains(event.target)) {
         setMenuOpen(false);
@@ -41,14 +67,30 @@ function Home() {
     return () => {
       document.removeEventListener('mousedown', handleClickOutside);
     };
-  }, [menuRef]);
+  }, []);
 
+  /**
+   * Signs out the current user and redirects to the homepage.
+   * 
+   * @async
+   * @function
+   * @returns {Promise<void>} A promise that resolves when the user is signed out.
+   */
   const handleLogout = async () => {
-    await signOut(auth);
-    setEmail("");
-    navigate('/');
+    try {
+      await signOut(auth);
+      setEmail("");
+      navigate('/');
+    } catch (error) {
+      console.error("Error during sign out: ", error);
+    }
   };
 
+  /**
+   * Navigates to the specified feature page.
+   * 
+   * @param {string} feature - The feature to navigate to.
+   */
   const handleFeatureClick = (feature) => {
     navigate(`/${feature}`);
   };
@@ -61,21 +103,19 @@ function Home() {
 
       <nav>
         {/* Menu Icon */}
-        <div className="menu-icon" onClick={toggleMenu}>
+        <div className="menu-icon" onClick={toggleMenu} aria-label="Menu">
           &#9776; {/* Unicode for hamburger icon */}
         </div>
 
         {/* Dropdown Menu */}
         {menuOpen && (
           <div className="dropdown-menu" ref={menuRef}>
-            <Link to="/">Home</Link>
-            <Link onClick={handleLogout}>Logout</Link>
-            <Link to="/signup">Sign Up</Link>
+            <Link to="/" aria-label="Home">Home</Link>
+            <Link onClick={handleLogout} aria-label="Logout">Logout</Link>
+            <Link to="/signup" aria-label="Sign Up">Sign Up</Link>
           </div>
         )}
-        {/* <Link onClick={handleLogout}>Log out</Link>
-        <Link to='/SignUp'>Sign Up</Link> */}
-        <Link to='/Home'>Home</Link>
+        <Link to='/Home' aria-label="Home">Home</Link>
       </nav>
 
       <div className="container">
@@ -83,7 +123,7 @@ function Home() {
           <h1>Welcome to HoneyPot</h1>
           <p>Empowering you to take control of your finances and achieve your financial goals.</p>
 
-          <button className="feature" id="budgeting" aria-label="Budgeting feature" onClick={() => handleFeatureClick('Budget')}>
+          <button className="feature" id="financial-news" aria-label="Financial News feature" onClick={() => handleFeatureClick('FinancialNews')}>
             <h2>Financial News</h2>
             <p>Enrich your financial understanding</p>
           </button>
@@ -105,4 +145,3 @@ function Home() {
 }
 
 export default Home;
-
