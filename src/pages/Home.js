@@ -112,7 +112,7 @@ function Home() {
           <div className="dropdown-menu" ref={menuRef}>
             <Link to="/" aria-label="Home">Home</Link>
             <Link onClick={handleLogout} aria-label="Logout">Logout</Link>
-            <Link to="/signup" aria-label="Sign Up">Sign Up</Link>
+            <Link to="/SignUp" aria-label="Sign Up">Sign Up</Link>
           </div>
         )}
         <Link to='/Home' aria-label="Home">Home</Link>
@@ -123,7 +123,7 @@ function Home() {
           <h1>Welcome to HoneyPot</h1>
           <p>Empowering you to take control of your finances and achieve your financial goals.</p>
 
-          <button className="feature" id="financial-news" aria-label="Financial News feature" onClick={() => handleFeatureClick('FinancialNews')}>
+          <button className="feature" id="financial-news" aria-label="Financial News feature" onClick={() => handleFeatureClick('News')}>
             <h2>Financial News</h2>
             <p>Enrich your financial understanding</p>
           </button>

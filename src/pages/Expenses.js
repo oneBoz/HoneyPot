@@ -174,7 +174,7 @@ function Expenses() {
             }
 
             if (data[key]) {
-                setOutput(data[key]);
+                setOutput(data[key].reverse());
                 setCurrCategory(key);
             } else {
                 setOutput([]);
@@ -296,7 +296,7 @@ function Expenses() {
                     <div className="dropdown-menu" ref={menuRef}>
                         <Link to="/">Home</Link>
                         <Link onClick={logout}>Logout</Link>
-                        <Link to="/signup">Sign Up</Link>
+                        <Link to="/SignUp">Sign Up</Link>
                     </div>
                 )}
                 <Link to='/Home'>Home</Link>
@@ -307,6 +307,7 @@ function Expenses() {
                     <div className="Budget-container">
                         <h2>Budget</h2>
                         <BudgetChart data={[totalMonth, data["Budget"] - totalMonth > 0 ? data["Budget"] - totalMonth : 0]} />
+                        <p> </p>
                         <input
                             type="number"
                             placeholder="Budget..."
@@ -372,33 +373,36 @@ function Expenses() {
 
                         {/* Table to display expenses */}
                         {tableOpen && (
-                            <table className="expense-table">
-                                <thead>
-                                    <tr>
-                                        <th>Name</th>
-                                        <th>Value</th>
-                                        <th>Date</th>
-                                        <th>Actions</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    {output.map((item, index) => {
-                                        const [name, value, date] = item.split(': ');
-                                        return (
-                                            <tr key={index}>
-                                                <td>{name}</td>
-                                                <td>{value}</td>
-                                                <td>{new Date(Number(date) * 1000).toLocaleDateString('en-US')}</td>
-                                                <td>
-                                                    <button onClick={() => deleteExpense(index)} className="delete-btn">Delete</button>
-                                                    {/* Add update functionality here if needed */}
-                                                </td>
-                                            </tr>
-                                        );
-                                    })}
-                                </tbody>
-                            </table>
+                            <div className="table-wrapper">
+                                <table className="expense-table">
+                                    <thead>
+                                        <tr>
+                                            <th>Name</th>
+                                            <th>Value</th>
+                                            <th>Date</th>
+                                            <th>Actions</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        {output.map((item, index) => {
+                                            const [name, value, date] = item.split(': ');
+                                            return (
+                                                <tr key={index}>
+                                                    <td>{name}</td>
+                                                    <td>{value}</td>
+                                                    <td>{new Date(Number(date) * 1000).toLocaleDateString('en-US')}</td>
+                                                    <td>
+                                                        <button onClick={() => deleteExpense(index)} className="delete-btn">Delete</button>
+                                                        {/* Add update functionality here if needed */}
+                                                    </td>
+                                                </tr>
+                                            );
+                                        })}
+                                    </tbody>
+                                </table>
+                            </div>
                         )}
+
                     </div>
                 </div>
             )}

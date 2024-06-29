@@ -59,7 +59,29 @@ function Login() {
       );
       navigate("/Home");
     } catch (error) {
-      setMessage("Please retry");
+      const errorCode = error.code;
+  
+      //Handle different error codes
+      switch (errorCode) {
+        case "auth/user-not-found":
+          setMessage("User not found. Please check your email.");
+          break;
+        case "auth/wrong-password":
+          setMessage("Invalid password. Please try again.");
+          break; 
+        // Add more cases as needed for different Firebase Auth error codes
+        case "auth/invalid-credential":
+          setMessage("Invalid credentials");
+          break;
+        case "auth/too-many-requests":
+          setMessage("Too many failed login attempts. You may reset it by contacting admin@gmail.com");
+          break;
+        default:
+          setMessage(error.message);
+          break;
+      }
+
+  
     }
   };
 

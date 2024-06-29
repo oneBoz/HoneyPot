@@ -1,9 +1,9 @@
+/* ExpenseTable.css */
+
 /* Example of CSS for styling the table with an orange theme */
 .expense-table {
   width: 100%;
   border-collapse: collapse;
-  margin-top: 20px;
-  margin-bottom: 20px;
   font-family: Arial, sans-serif;
 }
 
@@ -42,6 +42,10 @@
 
 .main-content {
   display: flex;
+  align-items: flex-start;
+  justify-content: space-evenly;
+  flex-wrap: wrap;
+  margin-top: 50px;
 }
 
 .show-expenses-btn {
@@ -65,5 +69,10 @@
 
 .show-expenses-btn:focus {
   outline: none; /* Remove focus outline */
+}
+.table-wrapper {
+  max-height: 300px; /* Adjust the height as needed */
+  overflow-y: auto;
+  border: 1px solid #ddd; /* Optional: adds a border for visual clarity */
 }
 

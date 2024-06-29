@@ -32,9 +32,7 @@ function SignUp() {
      * @param {import('firebase/auth').User | null} currentUser - The current user from Firebase authentication.
      */
     const unsubscribe = onAuthStateChanged(auth, (currentUser) => {
-      if (currentUser) {
-        navigate("/Home");
-      }
+      
     });
 
     return () => {
@@ -59,7 +57,7 @@ function SignUp() {
         registerPassword
       );
 
-      const colRef = collection(db, userCredential.user.uid); // Use user UID for collection reference
+      const colRef = collection(db, registerEmail); // Use user UID for collection reference
       const data = {
         Budget: 0,
       };
@@ -85,7 +83,7 @@ function SignUp() {
         setMessage("Invalid email. Please enter a valid email address.");
         break;
       case 'auth/weak-password':
-        setMessage("Weak password. Please enter a stronger password.");
+        setMessage("Weak password. Please enter at least 6 characters.");
         break;
       default:
         setMessage("An error occurred. Please try again.");
