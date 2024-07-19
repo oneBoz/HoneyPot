@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Investment Tracker</title>
+  <!-- Font Awesome -->
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet" />
+  <!-- Google Fonts -->
+  <link href="https://fonts.googleapis.com/css?family=Rubik:wght@400;700&display=swap" rel="stylesheet" />
+  <!-- MDB -->
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/mdb-ui-kit/6.2.0/mdb.min.css" rel="stylesheet" />
+  <!-- Chart.js -->
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <header class="banner">
+    <div class="header-content">
+      <button class="back-button" onclick="history.back()">Back</button>
+      <h2 class="page-heading">Investment Tracker</h2>
+    </div>
+  </header>
+  <div class="main-content">
+    <div class="form-container">
+      <h3>Add New Investment</h3>
+      <form id="investment-form">
+        <label for="ticker-symbol">Ticker Symbol:</label>
+        <input type="text" id="ticker-symbol" name="ticker-symbol" required />
+
+        <label for="number-of-shares">Number of Shares:</label>
+        <input type="number" id="number-of-shares" name="number-of-shares" required />
+
+        <button type="submit">Add Investment</button>
+      </form>
+    </div>
+    <div class="table-container">
+      <h3>Transactions</h3>
+      <table id="transactions-table">
+        <thead>
+          <tr>
+            <th>Ticker Symbol</th>
+            <th>Shares</th>
+            <th>Price</th>
+            <th>Value</th>
+            <th>Timestamp</th>
+            <th>Action</th>
+          </tr>
+        </thead>
+        <tbody></tbody>
+      </table>
+    </div>
+    <div class="chart-container">
+      <h3>Investment Distribution</h3>
+      <canvas id="investment-chart"></canvas>
+    </div>
+  </div>
+  
+  <script src="main.js"></script>
+  <!-- MDB -->
+  <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mdb-ui-kit/6.2.0/mdb.min.js"></script>
+</body>
+</html>
