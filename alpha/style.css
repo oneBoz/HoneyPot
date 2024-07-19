@@ -107,7 +107,7 @@ button {
 }
 
 button:hover {
-  background-color: #fb8c00; /* Darker amber */
+  background-color: #f57c00; /* Dark orange */
   transform: scale(1.05);
 }
 

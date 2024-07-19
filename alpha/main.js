@@ -7,6 +7,11 @@ document.getElementById('investment-form').addEventListener('submit', async (eve
   const ticker = document.getElementById('ticker-symbol').value.toUpperCase();
   const shares = parseInt(document.getElementById('number-of-shares').value);
 
+  if (shares <= 0) {
+    alert("Number of shares must be greater than zero.");
+    return;
+  }
+
   try {
     const response = await fetch(`https://www.alphavantage.co/query?function=GLOBAL_QUOTE&symbol=${ticker}&apikey=${apiKey}`);
     const data = await response.json();
@@ -29,7 +34,7 @@ function updateTable() {
     const row = document.createElement('tr');
     row.innerHTML = `
       <td>${investment.ticker}</td>
-      <td><input type="number" value="${investment.shares}" onchange="updateShares(${index}, this.value)" /></td>
+      <td><input type="number" min="1" value="${investment.shares}" onchange="updateShares(${index}, this.value)" /></td>
       <td>$${investment.price.toFixed(2)}</td>
       <td>$${investment.value.toFixed(2)}</td>
       <td>${investment.timestamp}</td>
@@ -40,8 +45,15 @@ function updateTable() {
 }
 
 function updateShares(index, newShares) {
+  newShares = parseInt(newShares);
+  if (newShares <= 0) {
+    alert("Number of shares must be greater than zero.");
+    updateTable();
+    return;
+  }
+
   const investment = investments[index];
-  investment.shares = parseInt(newShares);
+  investment.shares = newShares;
   investment.value = investment.price * investment.shares;
   updateTable();
   updateChart();
