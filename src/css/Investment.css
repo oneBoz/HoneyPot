@@ -1,0 +1,167 @@
+
+
+
+.form-container,
+.table-container,
+.chart-container {
+  width: 100%;
+  max-width: 800px;
+  background-color: #fff;
+  padding: 20px;
+  margin: 20px 0;
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+
+h3 {
+  color: #ffca28; /* Honey gold */
+  text-align: center;
+  font-size: 1.5em;
+  margin-bottom: 20px;
+}
+
+/* Form styling */
+form {
+  display: flex;
+  flex-direction: column;
+}
+
+/* Label styling */
+label {
+  margin: 10px 0 5px;
+  font-weight: bold;
+}
+
+/* Input field styling */
+input {
+  padding: 10px;
+  border: 1px solid #8d6e63; /* Light brown */
+  border-radius: 5px;
+  font-size: 1em;
+}
+
+/* Button styling */
+button {
+  margin-top: 20px;
+  padding: 10px;
+  background-color: #ff9800; /* Amber */
+  border: none;
+  border-radius: 20px;
+  color: #fff;
+  font-family: 'Rubik', sans-serif;
+  font-weight: bold;
+  cursor: pointer;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  transition: background-color 0.3s ease, transform 0.3s ease;
+  font-size: 1em;
+}
+
+button:hover {
+  background-color: #f57c00; /* Dark orange */
+  transform: scale(1.05);
+}
+
+/* Table styling */
+table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+/* Table header styling */
+th {
+  background-color: #ffca28; /* Honey gold */
+  color: #fff;
+  padding: 10px;
+  text-align: left;
+  font-weight: bold;
+}
+
+/* Table cell styling */
+td {
+  background-color: #fff8e1; /* Light honey color */
+  padding: 10px;
+  border: 1px solid #8d6e63; /* Light brown */
+  text-align: left;
+}
+
+/* Table input field styling */
+td input {
+  width: 60px;
+  padding: 5px;
+  border: 1px solid #8d6e63; /* Light brown */
+  border-radius: 5px;
+}
+
+/* Table button styling */
+td button {
+  background-color: #f57c00; /* Dark orange */
+  border: none;
+  padding: 5px 10px;
+  border-radius: 5px;
+  color: #fff;
+  font-family: 'Rubik', sans-serif;
+  cursor: pointer;
+  transition: background-color 0.3s ease, transform 0.3s ease;
+}
+
+td button:hover {
+  background-color: #e65100; /* Darker orange */
+  transform: scale(1.05);
+}
+
+/* Chart container styling */
+.chart-container {
+  background-color: #fff8e1; /* Light honey color */
+}
+
+.dropdown-menu.show {
+  opacity: 1; /* Fade in */
+  visibility: visible; /* Make visible */
+}
+
+.dropdown-menu a {
+  display: block;
+  padding: 10px 15px;
+  color: #333;
+  text-decoration: none;
+  border-bottom: 1px solid #ddd;
+}
+
+.dropdown-menu a:hover {
+  background-color: #f0f0f0;
+}
+
+/* Responsive design for smaller screens */
+@media (max-width: 768px) {
+  .main-content {
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .form-container,
+  .table-container,
+  .chart-container {
+    max-width: 100%;
+  }
+
+  /* Adjust font sizes for smaller screens */
+  h3 {
+    font-size: 1.2em;
+  }
+
+  button {
+    font-size: 0.9em;
+  }
+
+  input {
+    font-size: 0.9em;
+  }
+
+  /* Adjust dropdown menu for smaller screens */
+  .dropdown-menu {
+    width: 100%;
+    right: 0;
+    top: 60px;
+  }
+}

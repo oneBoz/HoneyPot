@@ -149,7 +149,6 @@ function News() {
           <div className="dropdown-menu" ref={menuRef}>
             <Link to="/">Home</Link>
             <Link onClick={handleLogout}>Logout</Link>
-            <Link to="/SignUp">Sign Up</Link>
           </div>
         )}
         <Link to='/Home'>Home</Link>

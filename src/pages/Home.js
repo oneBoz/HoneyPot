@@ -112,7 +112,6 @@ function Home() {
           <div className="dropdown-menu" ref={menuRef}>
             <Link to="/" aria-label="Home">Home</Link>
             <Link onClick={handleLogout} aria-label="Logout">Logout</Link>
-            <Link to="/SignUp" aria-label="Sign Up">Sign Up</Link>
           </div>
         )}
         <Link to='/Home' aria-label="Home">Home</Link>
