@@ -135,7 +135,6 @@ function Home() {
           <button className="feature" id="investments" aria-label="Investments feature" onClick={() => handleFeatureClick('Investment')}>
             <h2>Investments</h2>
             <p>Monitor the performance of your investment portfolios.</p>
-            <p>(Coming soon)</p>
           </button>
         </section>
       </div>
