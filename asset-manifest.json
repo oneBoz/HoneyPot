@@ -1,0 +1,13 @@
+{
+  "files": {
+    "main.css": "/HoneyPot/static/css/main.e2a4db50.css",
+    "main.js": "/HoneyPot/static/js/main.94a595a7.js",
+    "index.html": "/HoneyPot/index.html",
+    "main.e2a4db50.css.map": "/HoneyPot/static/css/main.e2a4db50.css.map",
+    "main.94a595a7.js.map": "/HoneyPot/static/js/main.94a595a7.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.e2a4db50.css",
+    "static/js/main.94a595a7.js"
+  ]
+}
