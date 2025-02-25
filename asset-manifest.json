@@ -1,13 +1,14 @@
 {
   "files": {
-    "main.css": "/HoneyPot/static/css/main.e2a4db50.css",
-    "main.js": "/HoneyPot/static/js/main.94a595a7.js",
-    "index.html": "/HoneyPot/index.html",
-    "main.e2a4db50.css.map": "/HoneyPot/static/css/main.e2a4db50.css.map",
-    "main.94a595a7.js.map": "/HoneyPot/static/js/main.94a595a7.js.map"
+    "main.css": "/static/css/main.c859d1bf.css",
+    "main.js": "/static/js/main.7a8dceac.js",
+    "static/media/Pot.jpg": "/static/media/Pot.78dfee03e425280c5160.jpg",
+    "index.html": "/index.html",
+    "main.c859d1bf.css.map": "/static/css/main.c859d1bf.css.map",
+    "main.7a8dceac.js.map": "/static/js/main.7a8dceac.js.map"
   },
   "entrypoints": [
-    "static/css/main.e2a4db50.css",
-    "static/js/main.94a595a7.js"
+    "static/css/main.c859d1bf.css",
+    "static/js/main.7a8dceac.js"
   ]
 }
